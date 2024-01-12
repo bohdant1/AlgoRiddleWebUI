@@ -6,7 +6,7 @@
 
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
-    <app-custom-sidenav [collapsed]="collapsed()"/> 
+    <app-custom-sidenav [collapsed]="collapsed()" />
   </mat-sidenav>
   <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
     <router-outlet></router-outlet>
