@@ -27,7 +27,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = "AlgoRiddleWebUI";
+  title : string = "AlgoRiddleWebUI";
+  navBarTitle : string = "AlgoRiddle"; 
   collapsed = signal(false);
   sidenavWidth = computed(() => this.collapsed() ? '65px' : '250px')
 }

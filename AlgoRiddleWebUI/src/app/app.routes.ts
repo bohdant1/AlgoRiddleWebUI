@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 
 export const routes: Routes = [
     {
@@ -15,5 +17,13 @@ export const routes: Routes = [
     {
         path: 'analytics',
         component: AnalyticsComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'signup',
+        component: SignupComponent
     },
 ];
