@@ -4,10 +4,10 @@
   </button>
   <span>{{ navBarTitle }}</span>
   <span class="example-spacer"></span>
-  <button style="margin-right: 10px" mat-raised-button color="primary">
+  <button style="margin-right: 10px" mat-raised-button color="primary" routerLink="/login">
     Login
   </button>
-  <button style="margin-right: 10px" mat-raised-button color="primary">
+  <button style="margin-right: 10px" mat-raised-button color="primary" routerLink="/signup">
     SignUp
   </button>
 </mat-toolbar>
@@ -20,5 +20,3 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 <router-outlet *ngIf="!showNavbar"></router-outlet> 
-<!-- <h2 *ngIf="!showNavbar">Hello</h2>
-<router-outlet></router-outlet>   -->

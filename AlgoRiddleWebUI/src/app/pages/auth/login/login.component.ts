@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavbarService } from '../../../services/navbar.service';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +7,15 @@ import { NavbarService } from '../../../services/navbar.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  constructor(private navbarService: NavbarService) {
+export class LoginComponent  {
+  constructor() {
 
   }
-  ngOnDestroy(): void {
-    this.navbarService.display();
-  }
-  ngOnInit(): void {
-    this.navbarService.hide();
-  }
+  // ngOnDestroy(): void {
+  //   this.navbarService.display();
+  // }
+  // ngOnInit(): void {
+  //   this.navbarService.hide();
+  //   console.log("Login ngOnIt "+this.navbarService.showNavBar.value);
+  // }
 }

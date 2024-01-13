@@ -8,7 +8,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule,
-            CustomNavbarComponent, 
+            CustomNavbarComponent,
             AngularFireModule,
             AngularFireAuthModule],
   templateUrl: './app.component.html',
