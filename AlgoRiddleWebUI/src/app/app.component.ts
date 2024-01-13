@@ -9,7 +9,7 @@ import { CustomSidenavComponent } from "./components/custom-sidenav/custom-siden
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { environment } from '../environments/environment';
+
 
 @Component({
   selector: 'app-root',
