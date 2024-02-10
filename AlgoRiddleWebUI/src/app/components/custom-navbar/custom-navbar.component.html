@@ -4,11 +4,32 @@
   </button>
   <span>{{ navBarTitle }}</span>
   <span class="example-spacer"></span>
-  <button style="margin-right: 10px" mat-raised-button color="primary" routerLink="/login">
-    Login
-  </button>
-  <button style="margin-right: 10px" mat-raised-button color="primary" routerLink="/signup">
-    SignUp
+  <div *ngIf="(isAuthenticated$ | async) === false">
+    <button
+      style="margin-right: 10px"
+      mat-raised-button
+      color="primary"
+      routerLink="/login"
+    >
+      Login
+    </button>
+    <button
+      style="margin-right: 10px"
+      mat-raised-button
+      color="primary"
+      routerLink="/signup"
+    >
+      Sign Up
+    </button>
+  </div>
+  <button  *ngIf="(isAuthenticated$ | async) === true"
+    style="margin-right: 10px"
+    mat-raised-button
+    color="primary"
+    routerLink="/dashboard"
+    (click)="onLogoutEvent()"
+  >
+    Logout
   </button>
 </mat-toolbar>
 <mat-sidenav-container *ngIf="showNavbar">
@@ -19,4 +40,4 @@
     <router-outlet *ngIf="showNavbar"></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<router-outlet *ngIf="!showNavbar"></router-outlet> 
+<router-outlet *ngIf="!showNavbar"></router-outlet>

@@ -11,11 +11,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class DashboardComponent {
   constructor(private authService : AuthService){ }
-  isauth: boolean = this.authService.isAuthenticated;
+  // isauth: boolean = this.authService.isAuthenticated;
 
   login() {
     this.authService.login("b", "L");
-    console.log(this.authService.isAuthenticated);
-    this.isauth = this.authService.isAuthenticated;
+    // console.log(this.authService.isAuthenticated);
+    // this.isauth = this.authService.isAuthenticated;
   }
 }

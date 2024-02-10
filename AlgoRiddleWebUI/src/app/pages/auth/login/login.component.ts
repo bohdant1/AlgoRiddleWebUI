@@ -7,6 +7,7 @@ import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule } 
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../services/auth.service';
 
 /** @title Simple form field */
 @Component({
@@ -25,11 +26,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule],
 })
 export class LoginComponent {
+
+  constructor(private service: AuthService) { }
+
   hide = true;
 
   loginForm = new FormGroup({
     email: new FormControl<string>('', [Validators.required, Validators.email]),
-    password: new FormControl<string>('', [Validators.minLength(1)])
+    password: new FormControl<string>('', [Validators.required, Validators.minLength(6)])
   })
 
   getErrorMessageEmail() {
@@ -45,14 +49,21 @@ export class LoginComponent {
       return 'You must enter a value';
     }
 
-    return this.loginForm.controls.password.hasError('password') ? 'Not a valid password' : '';
+    return this.loginForm.controls.password.hasError('minlength') ? 'Not a valid password' : '';
   }
 
 
   onSubmit() {
     if (this.loginForm.controls.password.valid &&
       this.loginForm.controls.email.valid) {
-        
+        const email_value = this.loginForm.controls.email.value;
+        const password_value = this.loginForm.controls.password.value;
+        if(email_value!==null && password_value!==null){
+          this.service.login(email_value, password_value);
+        }
+        else{
+          // add logic for nullability
+        }
     }
     
   }

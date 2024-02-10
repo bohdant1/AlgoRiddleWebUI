@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth) { }
+  constructor(private afAuth: AngularFireAuth,  private router: Router) { }
+  
 
   signUp(email: string, password: string) {
     this.afAuth.createUserWithEmailAndPassword(email, password)
@@ -20,7 +24,7 @@ export class AuthService {
   login(email: string, password: string) {
     this.afAuth.signInWithEmailAndPassword(email, password)
       .then(() => {
-        // Login successful
+        this.router.navigateByUrl("/dashboard");
       })
       .catch((error) => {
         // An error occurred
@@ -37,7 +41,9 @@ export class AuthService {
       });
   }
 
-  get isAuthenticated(): boolean {
-    return this.afAuth.currentUser !== null;
+  get isAuthenticated$(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      map(user => user !== null)
+    );
   }
 }

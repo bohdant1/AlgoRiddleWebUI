@@ -22,9 +22,12 @@
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
-            required
             [formControl]="loginForm.controls.password"
+            required
           />
+          <mat-error *ngIf="loginForm.controls.password.invalid">{{
+            getErrorMessagePassword()
+          }}</mat-error>
           <button
             mat-icon-button
             matSuffix
