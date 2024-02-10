@@ -16,6 +16,17 @@ mat-card-title{
   margin-top: 20px
 }
 
+.example-button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.example-button-row button {
+  font-size: 1.2em; /* You can adjust the font size as needed */
+  width: 150px; /* Set width */
+  height: 50px; /* Set height */
+}
+
 
 .email{
   width: 100%; 

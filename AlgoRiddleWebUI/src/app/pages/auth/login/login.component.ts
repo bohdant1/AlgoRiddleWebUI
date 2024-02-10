@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 /** @title Simple form field */
 @Component({
@@ -14,15 +14,15 @@ import {MatButtonModule} from '@angular/material/button';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   standalone: true,
-  imports: [CommonModule, 
-            MatFormFieldModule, 
-            MatInputModule, 
-            MatSelectModule, 
-            FormsModule, 
-            MatCardModule, 
-            ReactiveFormsModule,
-            MatIconModule,
-            MatButtonModule],
+  imports: [CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule],
 })
 export class LoginComponent {
   hide = true;
@@ -50,6 +50,10 @@ export class LoginComponent {
 
 
   onSubmit() {
-    throw new Error('Method not implemented.');
+    if (this.loginForm.controls.password.valid &&
+      this.loginForm.controls.email.valid) {
+        
+    }
+    
   }
 }
