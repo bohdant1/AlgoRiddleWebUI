@@ -38,7 +38,7 @@ export class CustomNavbarComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url == '/signup' || val.url == '/login') {
+        if (val.url == '/signup' || val.url == '/login' || val.url == '/passwordreset') {
           this.showNavbar = false;
         }
         else {

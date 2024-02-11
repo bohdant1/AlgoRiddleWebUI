@@ -77,3 +77,9 @@ input.example-right-align {
 .error-card mat-card-content p {
   margin: 0; /* Remove default margin */
 }
+
+.reset-password {
+  padding-top: 5%;
+  font-size: medium;
+  align-self:flex-end;
+}

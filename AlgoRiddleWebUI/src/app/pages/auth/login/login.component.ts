@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 /** @title Simple form field */
 @Component({
@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatSelectModule,
     FormsModule,
+    RouterModule,
     MatCardModule,
     ReactiveFormsModule,
     MatIconModule,
