@@ -89,8 +89,19 @@ export class SignupComponent {
                     .register(userRegistration)
                     .subscribe({
                         next: () => {
-                            // Registration successful, navigate to dashboard
-                            this.router.navigateByUrl('/dashboard');
+                            // Registration successful
+                            // Now, log in the user
+                            this.service.login(email_value, password_value)
+                                .then(() => {
+                                    // Login successful, navigate to dashboard
+                                    this.router.navigateByUrl("/dashboard");
+                                    // Hide the login and signup buttons after successful login
+                                })
+                                .catch(error => {
+                                    // Remove "Firebase: " prefix from the error message
+                                    this.errorMessage = error.message.replace("Firebase: ", "");
+                                    this.showError = true; // Show error message
+                                });
                         },
                         error: (error) => {
                             // Handle error
@@ -104,6 +115,7 @@ export class SignupComponent {
         }
     }
     
+
 
 
 
