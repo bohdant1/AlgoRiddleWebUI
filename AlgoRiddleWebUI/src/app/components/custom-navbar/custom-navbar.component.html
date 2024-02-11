@@ -1,0 +1,42 @@
+<mat-toolbar *ngIf="showNavbar" class="mat-elevation-z3">
+  <button mat-icon-button (click)="collapsed.set(!collapsed())">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ navBarTitle }}</span>
+  <span class="example-spacer"></span>
+  <div *ngIf="(isAuthenticated$ | async) === false">
+    <button
+      style="margin-right: 10px"
+      mat-raised-button
+      color="primary"
+      routerLink="/login"
+    >
+      Login
+    </button>
+    <button
+      style="margin-right: 10px"
+      mat-raised-button
+      color="primary"
+      routerLink="/signup"
+    >
+      Sign Up
+    </button>
+  </div>
+  <button  *ngIf="(isAuthenticated$ | async) === true"
+    style="margin-right: 10px"
+    mat-raised-button
+    color="primary"
+    (click)="onLogoutEvent()"
+  >
+    Logout
+  </button>
+</mat-toolbar>
+<mat-sidenav-container *ngIf="showNavbar">
+  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+    <app-custom-sidenav [collapsed]="collapsed()" />
+  </mat-sidenav>
+  <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+    <router-outlet *ngIf="showNavbar"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<router-outlet *ngIf="!showNavbar"></router-outlet>

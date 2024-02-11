@@ -1,0 +1,59 @@
+<mat-card>
+  <mat-card-title>Login to your account</mat-card-title>
+  <mat-card-content>
+    <!-- Error card -->
+    <div class="error-card" *ngIf="showError">
+      <mat-card>
+        <mat-card-content>
+          <p>{{ errorMessage }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field class="email">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="user@example.com"
+            [formControl]="loginForm.controls.email"
+            required
+          />
+          <mat-error *ngIf="loginForm.controls.email.invalid">{{
+            getErrorMessageEmail()
+          }}</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="password">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="loginForm.controls.password"
+            required
+          />
+          <mat-error *ngIf="loginForm.controls.password.invalid">{{
+            getErrorMessagePassword()
+          }}</mat-error>
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" name="login">Login</button>
+      </div>
+    </form>
+    <div class="reset-password">
+      <a routerLink="/passwordreset"> Reset password </a>
+    </div>
+  </mat-card-content>
+</mat-card>
