@@ -1,1 +1,72 @@
-<p>signup works!</p>
+<mat-card>
+    <mat-card-title>Create a new account</mat-card-title>
+    <mat-card-content>
+        <!-- Error card -->
+        <div class="error-card" *ngIf="showError">
+            <mat-card>
+                <mat-card-content>
+                    <p>{{ errorMessage }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <p>
+                <mat-form-field class="username">
+                    <mat-label>Username</mat-label>
+                    <input
+                            matInput
+                            [formControl]="signupForm.controls.username"
+                            required
+                    />
+                    <mat-error *ngIf="signupForm.controls.username.invalid">{{
+                            getErrorMessageUsername()
+                        }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="email">
+                    <mat-label>Email</mat-label>
+                    <input
+                            matInput
+                            placeholder="user@example.com"
+                            [formControl]="signupForm.controls.email"
+                            required
+                    />
+                    <mat-error *ngIf="signupForm.controls.email.invalid">{{
+                            getErrorMessageEmail()
+                        }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="password">
+                    <mat-label>Password</mat-label>
+                    <input
+                            matInput
+                            [type]="hide ? 'password' : 'text'"
+                            [formControl]="signupForm.controls.password"
+                            required
+                    />
+                    <mat-error *ngIf="signupForm.controls.password.invalid">{{
+                            getErrorMessagePassword()
+                        }}</mat-error>
+                    <button
+                            mat-icon-button
+                            matSuffix
+                            (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide"
+                    >
+                        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </p>
+            <div class="example-button-row">
+                <button mat-raised-button color="primary" name="login">Login</button>
+            </div>
+        </form>
+        <div class="link-login">
+            <a routerLink="/login"> Already have an account? </a>
+        </div>
+    </mat-card-content>
+</mat-card>

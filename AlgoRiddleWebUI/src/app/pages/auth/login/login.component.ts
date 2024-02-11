@@ -54,7 +54,7 @@ export class LoginComponent {
       return 'You must enter a value';
     }
 
-    return this.loginForm.controls.password.hasError('minlength') ? 'Not a valid password' : '';
+    return this.loginForm.controls.password.hasError('minlength') ? 'Minimal length 6 characters' : '';
   }
 
 
