@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { environment } from '../environments/environment.development';
-import { provideFirebaseApp } from '@angular/fire/app';
+
 import { AngularFireModule } from '@angular/fire/compat';
 
 export const appConfig: ApplicationConfig = {
