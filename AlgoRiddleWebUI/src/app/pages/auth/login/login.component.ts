@@ -58,25 +58,24 @@ export class LoginComponent {
 
 
   onSubmit() {
-    if (this.loginForm.controls.password.valid &&
-      this.loginForm.controls.email.valid) {
-        const email_value = this.loginForm.controls.email.value;
-        const password_value = this.loginForm.controls.password.value;
-        if(email_value!==null && password_value!==null){
-          this.service.login(email_value, password_value)
+    if (this.loginForm.controls.password.valid && this.loginForm.controls.email.valid) {
+      const email_value = this.loginForm.controls.email.value;
+      const password_value = this.loginForm.controls.password.value;
+      if (email_value !== null && password_value !== null) {
+        this.service.login(email_value, password_value)
           .then(() => {
             // Login successful, navigate to dashboard
             this.router.navigateByUrl("/dashboard");
           })
           .catch(error => {
-            this.errorMessage = error.message; // Set error message
+            // Remove "Firebase: " prefix from the error message
+            this.errorMessage = error.message.replace("Firebase: ", "");
             this.showError = true; // Show error message
           });
-        }
-        else{
-          // add logic for nullability
-        }
+      } else {
+        // add logic for nullability
+      }
     }
-    
   }
+  
 }
