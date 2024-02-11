@@ -3,22 +3,23 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
+import { HttpClient } from "@angular/common/http";
+import { environment } from '../../environments/environment.development'; 
+import { RegistrationModel } from '../models/registrationModel';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth,  private router: Router) { }
-  
+  private baseUrl: string = environment.baseApi;
+  constructor(private afAuth: AngularFireAuth, private router: Router, private http: HttpClient) { }
 
-  signUp(email: string, password: string) {
-    this.afAuth.createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        // Sign up successful
-      })
-      .catch((error) => {
-        // An error occurred
-      });
+
+  register(userRegistration: RegistrationModel) {
+
+    const registerUrl: string = `${this.baseUrl}Register`;
+    return this.http.post<RegistrationModel>(registerUrl, userRegistration)
   }
 
   login(email: string, password: string) {
