@@ -1,6 +1,15 @@
 <mat-card>
   <mat-card-title>Login to your account</mat-card-title>
   <mat-card-content>
+    <!-- Error card -->
+    <div class="error-card" *ngIf="showError">
+      <mat-card>
+        <mat-card-content>
+          <p>{{ errorMessage }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <p>
         <mat-form-field class="email">

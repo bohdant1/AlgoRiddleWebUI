@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 /** @title Simple form field */
 @Component({
@@ -27,9 +28,12 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class LoginComponent {
 
-  constructor(private service: AuthService) { }
+  constructor(private service: AuthService, private router: Router) { }
 
   hide = true;
+
+  errorMessage: string = '';
+  showError: boolean = false;
 
   loginForm = new FormGroup({
     email: new FormControl<string>('', [Validators.required, Validators.email]),
@@ -59,7 +63,15 @@ export class LoginComponent {
         const email_value = this.loginForm.controls.email.value;
         const password_value = this.loginForm.controls.password.value;
         if(email_value!==null && password_value!==null){
-          this.service.login(email_value, password_value);
+          this.service.login(email_value, password_value)
+          .then(() => {
+            // Login successful, navigate to dashboard
+            this.router.navigateByUrl("/dashboard");
+          })
+          .catch(error => {
+            this.errorMessage = error.message; // Set error message
+            this.showError = true; // Show error message
+          });
         }
         else{
           // add logic for nullability

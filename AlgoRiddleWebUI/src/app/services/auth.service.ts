@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
@@ -22,13 +22,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    this.afAuth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.router.navigateByUrl("/dashboard");
-      })
-      .catch((error) => {
-        // An error occurred
-      });
+    return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
   logout() {
