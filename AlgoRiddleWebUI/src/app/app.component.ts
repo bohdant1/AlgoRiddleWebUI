@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CustomNavbarComponent } from './components/custom-navbar/custom-navbar.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,9 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
   imports: [CommonModule,
             CustomNavbarComponent,
             AngularFireModule,
-            AngularFireAuthModule],
+            AngularFireAuthModule,
+            HttpClientModule
+          ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
