@@ -8,8 +8,11 @@ import { environment } from '../environments/environment.development';
 
 import { AngularFireModule } from '@angular/fire/compat';
 
+import { provideHttpClient } from '@angular/common/http';
+
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
               provideAnimations(),
-              importProvidersFrom(AngularFireModule.initializeApp(environment.firebase))]
+              importProvidersFrom(AngularFireModule.initializeApp(environment.firebase)),
+              provideHttpClient()]
 };
