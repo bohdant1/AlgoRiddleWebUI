@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
 import { HttpClient } from "@angular/common/http";
-import { environment } from '../../environments/environment.development'; 
+import { environment } from '../../environments/environment.development';
 import { RegistrationModel } from '../models/registrationModel';
 
 
@@ -12,7 +12,7 @@ import { RegistrationModel } from '../models/registrationModel';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl: string = environment.baseApi;
+  private baseUrl: string = environment.registerApi;
   constructor(private afAuth: AngularFireAuth, private router: Router, private http: HttpClient) { }
 
 
@@ -46,4 +46,13 @@ export class AuthService {
       map(user => user !== null)
     );
   }
+
+  // Method to get the currently logged-in user's email
+  getCurrentUserEmail(): Observable<string | null> {
+    return this.afAuth.authState.pipe(
+      map(user => user ? user.email : null)
+    );
+  }
+
+
 }
