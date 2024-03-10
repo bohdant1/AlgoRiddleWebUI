@@ -142,6 +142,7 @@ export class SignupComponent {
                             // Handle error
                             this.errorMessage = error.message;
                             this.showError = true; // Show error message
+                            this.submitting = false; 
                         },
                         complete: () => {
                             this.submitting = false; // Set submitting to false when form submission is complete
