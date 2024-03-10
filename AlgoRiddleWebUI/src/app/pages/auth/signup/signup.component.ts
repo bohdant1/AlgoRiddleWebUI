@@ -3,13 +3,34 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { RegistrationModel } from "../../../models/registrationModel";
+
+// Custom validator function to check if the email has a dot followed by at least one character
+function dotFollowedByCharValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const email: string = control.value;
+      const dotIndex: number = email.indexOf('.');
+      if (dotIndex === -1 || dotIndex === email.length - 1) {
+        return { invalidDot: true };
+      }
+      return null;
+    };
+  }
+
+// Custom validator function to check if the passwords match
+function passwordMatchValidator(controlName: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        const password = control.value;
+        const confirmPassword = control.root.get(controlName)?.value;
+        return password === confirmPassword ? null : { passwordMismatch: true };
+    };
+}
 
 @Component({
     selector: 'app-signup',
@@ -35,17 +56,18 @@ export class SignupComponent {
     showError: boolean = false;
 
     signupForm = new FormGroup({
-        email: new FormControl<string>('', [Validators.required, Validators.email]),
+        email: new FormControl<string>('', [Validators.required, Validators.email, dotFollowedByCharValidator()]),
         password: new FormControl<string>('', [Validators.required, Validators.minLength(6)]),
-        username: new FormControl<string>('', [Validators.required, Validators.minLength(6)])
-    })
+        username: new FormControl<string>('', [Validators.required, Validators.minLength(6)]),
+        confirmPassword: new FormControl<string>('', [Validators.required, Validators.minLength(6), passwordMatchValidator('password')]),
+    });
 
     getErrorMessageEmail() {
         if (this.signupForm.controls.email.hasError('required')) {
             return 'You must enter a value';
         }
 
-        return this.signupForm.controls.email.hasError('email') ? 'Not a valid email' : '';
+        return (this.signupForm.controls.email.hasError('email') || this.signupForm.controls.email.hasError('invalidDot')) ? 'Not a valid email' : '';
     }
 
     getErrorMessagePassword() {
@@ -54,6 +76,13 @@ export class SignupComponent {
         }
 
         return this.signupForm.controls.password.hasError('minlength') ? 'Minimal length 6 characters' : '';
+    }
+
+    getErrorMessageConfirmPassword() {
+        if (this.signupForm.controls.confirmPassword.hasError('required')) {
+            return 'You must enter a value';
+        }
+        return this.signupForm.controls.confirmPassword.hasError('passwordMismatch') ? 'Passwords do not match' : '';
     }
 
     getErrorMessageUsername() {
