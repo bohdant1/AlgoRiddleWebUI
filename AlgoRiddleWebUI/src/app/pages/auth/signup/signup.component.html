@@ -1,3 +1,6 @@
+<div class="overlay" *ngIf="submitting"></div>
+<mat-progress-spinner class="spinner" *ngIf="submitting" mode="indeterminate"></mat-progress-spinner>
+
 <mat-card>
     <mat-card-title>Create a new account</mat-card-title>
     <mat-card-content>
