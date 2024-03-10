@@ -7,6 +7,7 @@ import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule, V
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { RegistrationModel } from "../../../models/registrationModel";
@@ -44,7 +45,8 @@ function passwordMatchValidator(controlName: string): ValidatorFn {
         MatCardModule,
         ReactiveFormsModule,
         MatIconModule,
-        MatButtonModule],
+        MatButtonModule,
+        MatProgressSpinnerModule],
     templateUrl: './signup.component.html',
     styleUrl: './signup.component.css'
 })
@@ -54,6 +56,7 @@ export class SignupComponent {
     hide = true;
     errorMessage: string = '';
     showError: boolean = false;
+    submitting: boolean = false; // Variable to track form submission
 
     signupForm = new FormGroup({
         email: new FormControl<string>('', [Validators.required, Validators.email, dotFollowedByCharValidator()]),
@@ -103,6 +106,8 @@ export class SignupComponent {
             const email_value = this.signupForm.controls.email.value;
             const password_value = this.signupForm.controls.password.value;
             const username_value = this.signupForm.controls.username.value;
+
+            this.submitting = true; // Set submitting to true when form is being submitted
     
             if (
                 email_value !== null &&
@@ -137,6 +142,9 @@ export class SignupComponent {
                             // Handle error
                             this.errorMessage = error.message;
                             this.showError = true; // Show error message
+                        },
+                        complete: () => {
+                            this.submitting = false; // Set submitting to false when form submission is complete
                         }
                     });
             } else {
