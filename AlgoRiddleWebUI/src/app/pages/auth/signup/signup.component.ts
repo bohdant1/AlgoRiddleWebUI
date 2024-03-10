@@ -97,7 +97,8 @@ export class SignupComponent {
         if (
             this.signupForm.controls.password.valid &&
             this.signupForm.controls.email.valid &&
-            this.signupForm.controls.username.valid
+            this.signupForm.controls.username.valid &&
+            this.signupForm.controls.confirmPassword.valid
         ) {
             const email_value = this.signupForm.controls.email.value;
             const password_value = this.signupForm.controls.password.value;
