@@ -23,6 +23,15 @@ function dotFollowedByCharValidator(): ValidatorFn {
     };
   }
 
+// Custom validator function to check if the passwords match
+function passwordMatchValidator(controlName: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        const password = control.value;
+        const confirmPassword = control.root.get(controlName)?.value;
+        return password === confirmPassword ? null : { passwordMismatch: true };
+    };
+}
+
 @Component({
     selector: 'app-signup',
     standalone: true,
@@ -49,8 +58,9 @@ export class SignupComponent {
     signupForm = new FormGroup({
         email: new FormControl<string>('', [Validators.required, Validators.email, dotFollowedByCharValidator()]),
         password: new FormControl<string>('', [Validators.required, Validators.minLength(6)]),
-        username: new FormControl<string>('', [Validators.required, Validators.minLength(6)])
-    })
+        username: new FormControl<string>('', [Validators.required, Validators.minLength(6)]),
+        confirmPassword: new FormControl<string>('', [Validators.required, Validators.minLength(6), passwordMatchValidator('password')]),
+    });
 
     getErrorMessageEmail() {
         if (this.signupForm.controls.email.hasError('required')) {
@@ -66,6 +76,13 @@ export class SignupComponent {
         }
 
         return this.signupForm.controls.password.hasError('minlength') ? 'Minimal length 6 characters' : '';
+    }
+
+    getErrorMessageConfirmPassword() {
+        if (this.signupForm.controls.confirmPassword.hasError('required')) {
+            return 'You must enter a value';
+        }
+        return this.signupForm.controls.confirmPassword.hasError('passwordMismatch') ? 'Passwords do not match' : '';
     }
 
     getErrorMessageUsername() {

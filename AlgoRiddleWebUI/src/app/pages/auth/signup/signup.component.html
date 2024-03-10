@@ -61,6 +61,29 @@
                     </button>
                 </mat-form-field>
             </p>
+            <p>
+                <mat-form-field class="password">
+                    <mat-label>Confirm Password</mat-label>
+                    <input
+                            matInput
+                            [type]="hide ? 'password' : 'text'"
+                            [formControl]="signupForm.controls.confirmPassword"
+                            required
+                    />
+                    <mat-error *ngIf="signupForm.controls.confirmPassword.invalid">{{
+                            getErrorMessageConfirmPassword()
+                        }}</mat-error>
+                    <button
+                            mat-icon-button
+                            matSuffix
+                            (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide"
+                    >
+                        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </p>
             <div class="example-button-row">
                 <button mat-raised-button color="primary" name="register">Register</button>
             </div>
