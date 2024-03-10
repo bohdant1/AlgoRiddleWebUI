@@ -1,8 +1,11 @@
-import { Component, Input, computed, signal } from '@angular/core';
+import { Component,OnInit, Input, computed, signal } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs';
+import { UserService } from '../../services/user.service';
 
 export type MenuItem = {
   icon: string;
@@ -18,6 +21,22 @@ export type MenuItem = {
 })
 export class CustomSidenavComponent {
   sideNavCollapsed = signal(false);
+  
+  userEmail$!: Observable<string | null>; // Non-null assertion operator
+  userData$!: Observable<any>; // Observable to hold the user's data
+
+  constructor(private authService: AuthService, private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.userEmail$ = this.authService.getCurrentUserEmail();
+    this.userEmail$.subscribe(email => {
+      if (email) {
+        this.userData$ = this.userService.getUserByEmail(email);
+      }
+    });
+  }
+
+
   @Input() set collapsed(val: boolean){
     this.sideNavCollapsed.set(val);
   }
