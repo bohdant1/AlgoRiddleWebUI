@@ -54,6 +54,7 @@
                             getErrorMessagePassword()
                         }}</mat-error>
                     <button
+                            type="button"
                             mat-icon-button
                             matSuffix
                             (click)="hide = !hide"
@@ -77,6 +78,7 @@
                             getErrorMessageConfirmPassword()
                         }}</mat-error>
                     <button
+                            type="button"
                             mat-icon-button
                             matSuffix
                             (click)="hide = !hide"
@@ -88,7 +90,7 @@
                 </mat-form-field>
             </p>
             <div class="example-button-row">
-                <button mat-raised-button color="primary" name="register">Register</button>
+                <button mat-raised-button color="primary" type="submit" name="register">Register</button>
             </div>
         </form>
         <div class="link-login">
