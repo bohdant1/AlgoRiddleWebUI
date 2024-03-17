@@ -1,3 +1,6 @@
+<div class="overlay" *ngIf="submitting"></div>
+<mat-progress-spinner class="spinner" *ngIf="submitting" mode="indeterminate"></mat-progress-spinner>
+
 <mat-card>
     <mat-card-title>Create a new account</mat-card-title>
     <mat-card-content>
@@ -51,6 +54,31 @@
                             getErrorMessagePassword()
                         }}</mat-error>
                     <button
+                            type="button"
+                            mat-icon-button
+                            matSuffix
+                            (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide"
+                    >
+                        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="password">
+                    <mat-label>Confirm Password</mat-label>
+                    <input
+                            matInput
+                            [type]="hide ? 'password' : 'text'"
+                            [formControl]="signupForm.controls.confirmPassword"
+                            required
+                    />
+                    <mat-error *ngIf="signupForm.controls.confirmPassword.invalid">{{
+                            getErrorMessageConfirmPassword()
+                        }}</mat-error>
+                    <button
+                            type="button"
                             mat-icon-button
                             matSuffix
                             (click)="hide = !hide"
@@ -62,7 +90,7 @@
                 </mat-form-field>
             </p>
             <div class="example-button-row">
-                <button mat-raised-button color="primary" name="register">Register</button>
+                <button mat-raised-button color="primary" type="submit" name="register">Register</button>
             </div>
         </form>
         <div class="link-login">

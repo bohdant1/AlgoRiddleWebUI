@@ -8,11 +8,14 @@ import { environment } from '../environments/environment.development';
 
 import { AngularFireModule } from '@angular/fire/compat';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+
+import { bearerTokenInterceptor } from './security/bearer-token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
               provideAnimations(),
               importProvidersFrom(AngularFireModule.initializeApp(environment.firebase)),
-              provideHttpClient()]
+              provideHttpClient(),
+              provideHttpClient(withInterceptors([bearerTokenInterceptor]))]
 };

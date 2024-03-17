@@ -5,6 +5,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
             CustomNavbarComponent,
             AngularFireModule,
             AngularFireAuthModule,
-            HttpClientModule
+            HttpClientModule,
           ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
