@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
 import { HttpClient } from "@angular/common/http";
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { RegistrationModel } from '../models/registrationModel';
 
 
