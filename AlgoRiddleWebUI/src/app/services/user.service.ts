@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUserByEmail(email: string): Observable<any> {
-    const url = `${this.baseUrl}users?email=${email}`;
+  getUserByEmail(): Observable<any> {
+    const url = `${this.baseUrl}users`;
     return this.http.get<any>(url);
   }
 
