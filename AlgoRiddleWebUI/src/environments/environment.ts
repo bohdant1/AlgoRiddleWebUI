@@ -10,5 +10,5 @@ export const environment = {
         appId: "1:520813551751:web:f090e9c1603432b85ad822"
     },
     registerApi: "https://algoriddlefuncapi.azurewebsites.net/api/",
-    baseApi: ""
+    baseApi: "https://algoriddlebackendapi.ashyocean-03bf12be.germanywestcentral.azurecontainerapps.io"
 };
