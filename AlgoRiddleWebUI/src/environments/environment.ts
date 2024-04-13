@@ -1,13 +1,14 @@
+// FIREBASE APIKEY IS NON-SENSATIVE
 export const environment = {
     production: true,
     firebase: {
-        apiKey: "none",
-        authDomain: "none",
-        projectId: "none",
-        storageBucket: "none",
-        messagingSenderId: "none",
-        appId: "none"
+        apiKey: "AIzaSyAMZWZiuY4lH9kzzZ4PyzufaVa-TeUESOs",
+        authDomain: "algoriddle-c4a50.firebaseapp.com",
+        projectId: "algoriddle-c4a50",
+        storageBucket: "algoriddle-c4a50.appspot.com",
+        messagingSenderId: "520813551751",
+        appId: "1:520813551751:web:f090e9c1603432b85ad822"
     },
-    registerApi: "none",
-    baseApi: "none"
+    registerApi: "https://algoriddlefuncapi.azurewebsites.net/api/",
+    baseApi: ""
 };
