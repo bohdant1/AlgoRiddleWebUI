@@ -4,6 +4,8 @@ import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { PasswordresetComponent } from './pages/auth/passwordreset/passwordreset.component';
+import { Problem } from './pages/dashboard/dashboard.component';
+import { ProblemComponent } from './pages/problem/problem.component';
 
 export const routes: Routes = [
     {
@@ -30,5 +32,9 @@ export const routes: Routes = [
     {
         path: 'passwordreset',
         component: PasswordresetComponent
+    },
+    {
+        path: 'problem',
+        component: ProblemComponent
     },
 ];
