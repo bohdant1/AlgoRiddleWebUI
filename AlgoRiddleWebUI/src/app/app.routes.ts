@@ -34,7 +34,7 @@ export const routes: Routes = [
         component: PasswordresetComponent
     },
     {
-        path: 'problem',
+        path: 'problem/:id',
         component: ProblemComponent
     },
 ];

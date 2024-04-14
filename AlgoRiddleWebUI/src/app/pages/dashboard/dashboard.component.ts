@@ -5,6 +5,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +28,7 @@ export class DashboardComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngAfterViewInit() {
     this.paginator.pageSize = 10;
@@ -49,6 +50,10 @@ export class DashboardComponent implements AfterViewInit {
       default:
         return '';
     }
+  }
+
+  onOpenClick(value: string) : void {
+    this.router.navigateByUrl(`/problem/${value}`);
   }
 }
 

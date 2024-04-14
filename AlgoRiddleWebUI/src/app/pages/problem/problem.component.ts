@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CodeEditorModule, CodeModel } from '@ngstack/code-editor';
 
 @Component({
@@ -9,7 +10,8 @@ import { CodeEditorModule, CodeModel } from '@ngstack/code-editor';
   styleUrl: './problem.component.css',
   encapsulation: ViewEncapsulation.None,
 })
-export class ProblemComponent {
+export class ProblemComponent implements OnInit {
+  id: string = '';
   theme = 'vs';
 
   model: CodeModel = {
@@ -26,7 +28,15 @@ export class ProblemComponent {
     }
   };
 
+  constructor(private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.params['id'];
+  }
+
   onCodeChanged(value: any) {
     console.log('CODE', value);
   }
+
+
 }
