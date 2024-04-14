@@ -19,6 +19,7 @@
   .editor-wrapper {
     flex: 1;
     padding: 20px;
+    height: 100%; /* Set editor height to 100% of its container */
   }
   
   .test-cases {
@@ -32,5 +33,20 @@
   
   .run-button {
     margin-top: 10px;
+  }
+
+  .custom-editor {
+    /* Adjust the height of the container element */
+    height: 60vh; /* Example height, adjust as needed */
+  
+    /* You might need to target specific elements within the editor to adjust their heights */
+  }
+  
+  .custom-editor .inner-element {
+    /* Adjust the height of specific inner elements if necessary */
+  }
+  
+  .custom-editor .another-inner-element {
+    /* Adjust the height of another specific inner element if necessary */
   }
   

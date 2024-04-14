@@ -20,8 +20,9 @@ export class ProblemComponent {
 
   options = {
     contextmenu: true,
+    height:600,
     minimap: {
-      enabled: false
+      enabled: true
     }
   };
 
