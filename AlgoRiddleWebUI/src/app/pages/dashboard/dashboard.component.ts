@@ -24,6 +24,19 @@ export class DashboardComponent implements AfterViewInit {
     this.paginator.pageSize = 10;
     this.dataSource.paginator = this.paginator;
   }
+
+  getDifficultyClass(difficulty: 'easy' | 'medium' | 'hard'): string {
+    switch (difficulty) {
+      case 'easy':
+        return 'easy-difficulty';
+      case 'medium':
+        return 'medium-difficulty';
+      case 'hard':
+        return 'hard-difficulty';
+      default:
+        return '';
+    }
+  }
 }
 
 

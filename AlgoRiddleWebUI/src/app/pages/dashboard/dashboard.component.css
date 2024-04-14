@@ -6,3 +6,15 @@ table {
     background-color: rgb(142, 206, 247) !important;
     color: #fff;
 }
+
+.easy-difficulty {
+    background-color: green;
+  }
+  
+.medium-difficulty {
+    background-color: yellow;
+}
+  
+.hard-difficulty {
+    background-color: red;
+}
