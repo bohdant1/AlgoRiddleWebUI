@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; /* Adjust as needed */
+  }
+  
+  .problem-description {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .main-content {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .editor-wrapper {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .test-cases {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .test-cases-content {
+    flex: 1;
+  }
+  
+  .run-button {
+    margin-top: 10px;
+  }
+  

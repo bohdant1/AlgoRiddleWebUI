@@ -11,11 +11,16 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { bearerTokenInterceptor } from './security/bearer-token.interceptor';
+import { CodeEditorModule } from '@ngstack/code-editor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
               provideAnimations(),
               importProvidersFrom(AngularFireModule.initializeApp(environment.firebase)),
+              importProvidersFrom(
+                CodeEditorModule.forRoot({
+                  editorVersion: '0.46.0'
+                })),
               provideHttpClient(),
               provideHttpClient(withInterceptors([bearerTokenInterceptor]))]
 };
