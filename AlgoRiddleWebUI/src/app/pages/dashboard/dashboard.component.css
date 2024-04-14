@@ -1,10 +1,5 @@
 table {
     width: 100%;
-  }
-
-.mat-success {
-    background-color: rgb(142, 206, 247) !important;
-    color: #fff;
 }
 
 .easy-difficulty {
@@ -26,4 +21,33 @@ table {
 .button-wrapper button {
     flex: 1;
     width: 100%; /* Optional: Set a default width */
+    background-color: rgb(142, 206, 247) !important;
+    color: black;
 }
+
+.statistics {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .stat-box {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    background-color: white; /* Set background color to white */
+  }
+  
+  .stat-title {
+    font-weight: bold;
+    background-color: white; /* Set background color to white */
+  }
+  
+  .stat-value {
+    font-size: 20px;
+    margin-top: 5px;
+    background-color: white; /* Set background color to white */
+  }
+  

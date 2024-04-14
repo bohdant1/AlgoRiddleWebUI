@@ -1,4 +1,21 @@
 <div>
+    <div *ngIf="(isAuthenticated$ | async) === true">
+      <div class="statistics">
+        <div class="stat-box">
+          <div class="stat-title">Total Problems Solved</div>
+          <div class="stat-value">{{ totalProblemsSolved }}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-title">Total Problems Left</div>
+          <div class="stat-value">{{ totalProblemsLeft }}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-title">Hard Problems Solved</div>
+          <div class="stat-value">{{ hardProblemsSolved }}</div>
+        </div>
+      </div>
+    </div>
+
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource">
       
@@ -29,7 +46,7 @@
                 <div class="button-wrapper">
                   <button mat-flat-button name="Open" color="success">Open</button>
                 </div>
-              </td>
+            </td>
           </ng-container>
       
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

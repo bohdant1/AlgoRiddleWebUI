@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,12 +19,23 @@ import { MatButtonModule } from '@angular/material/button';
 export class DashboardComponent implements AfterViewInit {
   displayedColumns: string[] = ['number', 'name', 'difficulty', 'id'];
   dataSource = new MatTableDataSource<Problem>(PROBLEM_DATA);
+  isAuthenticated$!: Observable<boolean>;
+
+  totalProblemsSolved = 0;
+  totalProblemsLeft = 0;
+  hardProblemsSolved= 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private authService: AuthService) { }
 
   ngAfterViewInit() {
     this.paginator.pageSize = 10;
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnInit(): void {
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
   }
 
   getDifficultyClass(difficulty: 'easy' | 'medium' | 'hard'): string {
