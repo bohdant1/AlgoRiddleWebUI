@@ -1,0 +1,8 @@
+table {
+    width: 100%;
+  }
+
+.mat-success {
+    background-color: rgb(142, 206, 247) !important;
+    color: #fff;
+}
