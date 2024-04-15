@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; /* Adjust as needed */
+  }
+  
+  .problem-description {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .main-content {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .editor-wrapper {
+    flex: 1;
+    padding: 20px;
+    height: 100%; /* Set editor height to 100% of its container */
+  }
+  
+  .test-cases {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .test-cases-content {
+    flex: 1;
+  }
+  
+  .run-button {
+    margin-top: 10px;
+  }
+
+  .custom-editor {
+    /* Adjust the height of the container element */
+    height: 60vh; /* Example height, adjust as needed */
+  
+    /* You might need to target specific elements within the editor to adjust their heights */
+  }
+  
+  .custom-editor .inner-element {
+    /* Adjust the height of specific inner elements if necessary */
+  }
+  
+  .custom-editor .another-inner-element {
+    /* Adjust the height of another specific inner element if necessary */
+  }
+  

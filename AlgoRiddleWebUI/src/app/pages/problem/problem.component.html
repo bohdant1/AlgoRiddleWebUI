@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="problem-description">
+      <!-- Your problem description content goes here -->
+      <h1>Id: {{ this.id }}</h1>
+      <p>This is where the problem description will be.</p>
+    </div>
+    <div class="main-content">
+      <div class="editor-wrapper">
+        <ngs-code-editor class="custom-editor" [theme]="theme" [codeModel]="model" [options]="options" (valueChanged)="onCodeChanged($event)"></ngs-code-editor>
+      </div>
+      <div class="test-cases">
+        <!-- Test cases content and run button go here -->
+        <div class="test-cases-content">
+          <p>Test cases go here.</p>
+        </div>
+        <button class="run-button">Run</button>
+      </div>
+    </div>
+  </div>
+  
