@@ -50,4 +50,14 @@ table {
     margin-top: 5px;
     background-color: white; /* Set background color to white */
   }
+
+  .mat-elevation-z8 {
+    margin-bottom: 60px; /* Reserve space for the paginator */
+    overflow: auto; /* Enable vertical scrolling if necessary */
+}
+
+.mat-paginator {
+    margin-top: 20px; /* Add some space between the table and the paginator */
+}
+
   
