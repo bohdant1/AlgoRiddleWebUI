@@ -44,7 +44,7 @@
             <th mat-header-cell *matHeaderCellDef> Link </th>
             <td mat-cell *matCellDef="let element">
                 <div class="button-wrapper">
-                  <button mat-flat-button name="Open" color="success">Open</button>
+                  <button mat-flat-button name="Open" color="success" (click)="onOpenClick(element.id)">Open</button>
                 </div>
             </td>
           </ng-container>
