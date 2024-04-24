@@ -10,7 +10,6 @@ import { AngularFireModule } from '@angular/fire/compat';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
-import { bearerTokenInterceptor } from './security/bearer-token.interceptor';
 import { CodeEditorModule } from '@ngstack/code-editor';
 
 export const appConfig: ApplicationConfig = {
