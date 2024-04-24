@@ -21,6 +21,5 @@ export const appConfig: ApplicationConfig = {
                 CodeEditorModule.forRoot({
                   editorVersion: '0.46.0'
                 })),
-              provideHttpClient(),
-              provideHttpClient(withInterceptors([bearerTokenInterceptor]))]
+              provideHttpClient()]
 };

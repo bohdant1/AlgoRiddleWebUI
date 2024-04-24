@@ -29,8 +29,9 @@ export class CustomSidenavComponent {
 
   ngOnInit(): void {
     this.userEmail$ = this.authService.getCurrentUserEmail();
+    // this.userData$ = this.userService.getUserByEmail();
     this.userEmail$.subscribe(email => {
-        this.userData$ = this.userService.getUserByEmail();
+        this.userData$ = this.userService.getUser();
     });
   }
 
