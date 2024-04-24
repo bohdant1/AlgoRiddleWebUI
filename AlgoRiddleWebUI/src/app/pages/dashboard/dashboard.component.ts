@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 import { ProblemService } from '../../services/problem.service';
 import { ProblemResponseModel } from '../../models/problemResponseModel';
+import { Page } from '../../models/page';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,8 +22,11 @@ import { ProblemResponseModel } from '../../models/problemResponseModel';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements AfterViewInit {
+  problems: ProblemResponseModel[] = [];
+
+  
   displayedColumns: string[] = ['number', 'name', 'difficulty', 'id'];
-  dataSource = new MatTableDataSource<ProblemResponseModel>;
+  dataSource = new MatTableDataSource<ProblemResponseModel>(this.problems);
   isAuthenticated$!: Observable<boolean>;
 
   userEmail$!: Observable<string | null>; // Non-null assertion operator
@@ -31,8 +35,6 @@ export class DashboardComponent implements AfterViewInit {
   totalProblemsSolved = 0;
   totalProblemsLeft = 0;
   hardProblemsSolved = 0;
-
-  data$: Observable<ProblemResponseModel[]>; // Observable to hold the user's data
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -44,6 +46,7 @@ export class DashboardComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
+    
     this.paginator.pageSize = 10;
     this.dataSource.paginator = this.paginator;
   }
@@ -54,10 +57,13 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   async loadProblems() {
-    (this.problemService.getAllProblemsPaged()).subscribe({
-      next: (res) => console.log(res),
+    this.problemService.getAllProblemsPaged().subscribe({
+      next: (res) => {
+        this.problems = res.content;
+        this.dataSource = new MatTableDataSource<ProblemResponseModel>(this.problems);
+      },
       error: (err) => console.log(err),
-    })
+    });
   }
 
   getDifficultyClass(difficulty: 'easy' | 'medium' | 'hard'): string {
