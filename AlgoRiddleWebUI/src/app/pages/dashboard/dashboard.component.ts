@@ -1,42 +1,69 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 
+import { ProblemService } from '../../services/problem.service';
+import { ProblemResponseModel } from '../../models/problemResponseModel';
+import { Page } from '../../models/page';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule,
-            MatTableModule,
-            MatPaginatorModule,
-            MatButtonModule],
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements AfterViewInit {
+  problems: ProblemResponseModel[] = [];
+
+  
   displayedColumns: string[] = ['number', 'name', 'difficulty', 'id'];
-  dataSource = new MatTableDataSource<Problem>(PROBLEM_DATA);
+  dataSource = new MatTableDataSource<ProblemResponseModel>(this.problems);
   isAuthenticated$!: Observable<boolean>;
+
+  userEmail$!: Observable<string | null>; // Non-null assertion operator
+
 
   totalProblemsSolved = 0;
   totalProblemsLeft = 0;
-  hardProblemsSolved= 0;
+  hardProblemsSolved = 0;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private problemService: ProblemService) { }
+
 
   ngAfterViewInit() {
+    
     this.paginator.pageSize = 10;
     this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
+    this.loadProblems();
+  }
+
+  async loadProblems() {
+    this.problemService.getAllProblemsPaged().subscribe({
+      next: (res) => {
+        this.problems = res.content;
+        this.dataSource = new MatTableDataSource<ProblemResponseModel>(this.problems);
+      },
+      error: (err) => console.log(err),
+    });
   }
 
   getDifficultyClass(difficulty: 'easy' | 'medium' | 'hard'): string {
@@ -52,7 +79,7 @@ export class DashboardComponent implements AfterViewInit {
     }
   }
 
-  onOpenClick(value: string) : void {
+  onOpenClick(value: string): void {
     this.router.navigateByUrl(`/problem/${value}`);
   }
 }
