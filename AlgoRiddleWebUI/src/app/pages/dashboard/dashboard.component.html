@@ -55,6 +55,7 @@
       
         <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                        showFirstLastButtons
+                       (page)="onPageChange($event)"
                        aria-label="Select page of problems">
         </mat-paginator>
       </div>
