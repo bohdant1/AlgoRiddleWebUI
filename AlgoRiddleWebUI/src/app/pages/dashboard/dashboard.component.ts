@@ -7,9 +7,12 @@ import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { ProblemService } from '../../services/problem.service';
 import { ProblemResponseModel } from '../../models/problemResponseModel';
 import { Page } from '../../models/page';
+import { catchError, map, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,18 +20,24 @@ import { Page } from '../../models/page';
   imports: [CommonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatButtonModule],
+    MatButtonModule,
+    MatProgressSpinnerModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements AfterViewInit {
-  problems: ProblemResponseModel[] = [];
-  pageNumber: number = 0;
-  pageSize: number = 10;
+  isLoadingResults = true;
+  errorMessage!: string;
+  total!: number;
+
+  pageSizes = [5, 10, 20];
+
+
+  data: ProblemResponseModel[] = [];
+  dataSource = new MatTableDataSource<ProblemResponseModel>();
 
   
   displayedColumns: string[] = ['number', 'name', 'difficulty', 'id'];
-  dataSource = new MatTableDataSource<ProblemResponseModel>(this.problems);
   isAuthenticated$!: Observable<boolean>;
 
   userEmail$!: Observable<string | null>; // Non-null assertion operator
@@ -38,6 +47,8 @@ export class DashboardComponent implements AfterViewInit {
   totalProblemsLeft = 0;
   hardProblemsSolved = 0;
 
+  isLoading = false;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -46,26 +57,41 @@ export class DashboardComponent implements AfterViewInit {
     private router: Router,
     private problemService: ProblemService) { }
 
+  getTableData$(pageNumber: number, pageSize: number) {
+    return this.problemService.getAllProblemsPaged(pageNumber, pageSize);
+  }  
 
   ngAfterViewInit() {
-    this.paginator.pageSize = this.pageSize;
     this.dataSource.paginator = this.paginator;
-    this.loadProblems(this.pageNumber, this.pageSize);
+
+    this.paginator.page
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoading = true;
+          return this.getTableData$(
+            this.paginator.pageIndex,
+            this.paginator.pageSize
+          );
+        }),
+        map((data) => {
+          this.isLoadingResults = false;
+          if (data === null) {
+            return [];
+          }
+
+          this.total = data.totalElements;
+          return data.content;
+        })
+      )
+      .subscribe((data: ProblemResponseModel[]) => {
+        this.data = data;
+        this.dataSource = new MatTableDataSource(this.data);
+      });
   }
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
-    // this.loadProblems(this.pageNumber, this.pageSize);
-  }
-
-  async loadProblems(page: number = 0, size: number = 10) {
-    this.problemService.getAllProblemsPaged(page,size).subscribe({
-      next: (res) => {
-        this.problems = res.content;
-        this.dataSource = new MatTableDataSource<ProblemResponseModel>(this.problems);
-      },
-      error: (err) => console.log(err),
-    });
   }
 
   getDifficultyClass(difficulty: 'easy' | 'medium' | 'hard'): string {
@@ -85,8 +111,8 @@ export class DashboardComponent implements AfterViewInit {
     this.router.navigateByUrl(`/problem/${value}`);
   }
 
-  onPageChange(event: PageEvent) {
-    const pageIndex = event.pageIndex;
-    this.loadProblems(pageIndex, 10);
-  }
+  // onPageChange(event: PageEvent) {
+  //   const pageIndex = event.pageIndex;
+  //   this.loadProblems(pageIndex, 10);
+  // }
 }

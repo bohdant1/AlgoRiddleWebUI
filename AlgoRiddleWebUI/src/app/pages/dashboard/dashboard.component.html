@@ -17,6 +17,9 @@
     </div>
 
     <div class="mat-elevation-z8">
+        <div class="loading-shade" *ngIf="isLoading">
+          <mat-progress-spinner *ngIf="isLoading"></mat-progress-spinner>
+        </div>
         <table mat-table [dataSource]="dataSource">
       
           <!-- Number Column -->
@@ -53,9 +56,11 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+        <mat-paginator 
+                       #paginator 
+                       [pageSizeOptions]="pageSizes"
+                       [length]="total"
                        showFirstLastButtons
-                       (page)="onPageChange($event)"
                        aria-label="Select page of problems">
         </mat-paginator>
       </div>
