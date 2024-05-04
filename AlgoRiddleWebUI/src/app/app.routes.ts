@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { PasswordresetComponent } from './pages/auth/passwordreset/passwordreset.component';
 import { ProblemComponent } from './pages/problem/problem.component';
+import { hasRoleGuard } from './security/authGuard';
 
 export const routes: Routes = [
     {
@@ -34,6 +35,7 @@ export const routes: Routes = [
     },
     {
         path: 'problem/:id',
-        component: ProblemComponent
+        component: ProblemComponent,
+        canActivate: [hasRoleGuard]
     },
 ];
