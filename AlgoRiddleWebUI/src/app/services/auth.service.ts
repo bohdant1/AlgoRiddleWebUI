@@ -13,13 +13,13 @@ import { switchMap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl: string = environment.registerApi;
+  private baseUrl: string = environment.baseApi;
   constructor(private afAuth: AngularFireAuth, private router: Router, private http: HttpClient) { }
 
 
   register(userRegistration: RegistrationModel) {
 
-    const registerUrl: string = `${this.baseUrl}Register`;
+    const registerUrl: string = `${this.baseUrl}users`;
     return this.http.post<RegistrationModel>(registerUrl, userRegistration)
   }
 
