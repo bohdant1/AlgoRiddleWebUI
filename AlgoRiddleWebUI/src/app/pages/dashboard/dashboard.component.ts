@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { ProblemService } from '../../services/problem.service';
 import { ProblemResponseModel } from '../../models/problemResponseModel';
@@ -21,16 +21,15 @@ import { catchError, map, startWith, switchMap } from 'rxjs';
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatProgressSpinnerModule],
+    MatProgressBarModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements AfterViewInit {
-  isLoadingResults = true;
   errorMessage!: string;
   total!: number;
 
-  pageSizes = [5, 10, 20];
+  pageSizes = [10, 5, 20];
 
 
   data: ProblemResponseModel[] = [];
@@ -75,7 +74,7 @@ export class DashboardComponent implements AfterViewInit {
           );
         }),
         map((data) => {
-          this.isLoadingResults = false;
+          this.isLoading = false;
           if (data === null) {
             return [];
           }
@@ -110,9 +109,4 @@ export class DashboardComponent implements AfterViewInit {
   onOpenClick(value: string): void {
     this.router.navigateByUrl(`/problem/${value}`);
   }
-
-  // onPageChange(event: PageEvent) {
-  //   const pageIndex = event.pageIndex;
-  //   this.loadProblems(pageIndex, 10);
-  // }
 }

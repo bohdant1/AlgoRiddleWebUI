@@ -17,9 +17,6 @@
     </div>
 
     <div class="mat-elevation-z8">
-        <div class="loading-shade" *ngIf="isLoading">
-          <mat-progress-spinner *ngIf="isLoading"></mat-progress-spinner>
-        </div>
         <table mat-table [dataSource]="dataSource">
       
           <!-- Number Column -->
@@ -55,7 +52,7 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-      
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
         <mat-paginator 
                        #paginator 
                        [pageSizeOptions]="pageSizes"
