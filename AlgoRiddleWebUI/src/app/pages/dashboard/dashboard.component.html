@@ -52,8 +52,11 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-      
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+        <mat-paginator 
+                       #paginator 
+                       [pageSizeOptions]="pageSizes"
+                       [length]="total"
                        showFirstLastButtons
                        aria-label="Select page of problems">
         </mat-paginator>
