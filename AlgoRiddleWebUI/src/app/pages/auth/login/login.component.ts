@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/auth.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 /** @title Simple form field */
 @Component({
@@ -27,11 +27,12 @@ import { Router, RouterModule } from '@angular/router';
     MatIconModule,
     MatButtonModule],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  constructor(private service: AuthService, private router: Router) { }
+  constructor(private service: AuthService, private router: Router, private route: ActivatedRoute,) { }
 
   hide = true;
+  returnUrl: string;
 
   errorMessage: string = '';
   showError: boolean = false;
@@ -57,6 +58,11 @@ export class LoginComponent {
     return this.loginForm.controls.password.hasError('minlength') ? 'Minimal length 6 characters' : '';
   }
 
+  ngOnInit(): void {
+    // Get the return URL from query parameters
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
 
   onSubmit() {
     if (this.loginForm.controls.password.valid && this.loginForm.controls.email.valid) {
@@ -66,7 +72,7 @@ export class LoginComponent {
         this.service.login(email_value, password_value)
           .then(() => {
             // Login successful, navigate to dashboard
-            this.router.navigateByUrl("/dashboard");
+            this.router.navigateByUrl(this.returnUrl);
           })
           .catch(error => {
             // Remove "Firebase: " prefix from the error message

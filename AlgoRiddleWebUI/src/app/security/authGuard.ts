@@ -12,7 +12,7 @@ export const hasRoleGuard: CanActivateFn = (route, state) => {
       if (isAuthenticated) {
         return true; // Allow navigation if authenticated
       } else {
-        router.navigate(['/login']); // Redirect to login if not authenticated
+        router.navigate(['/login'], { queryParams: { returnUrl: state.url }}); // Redirect to login if not authenticated
         return false;
       }
     })
