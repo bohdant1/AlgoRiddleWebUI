@@ -15,9 +15,9 @@ export class ProblemComponent implements OnInit {
   theme = 'vs';
 
   model: CodeModel = {
-    language: 'json',
+    language: 'python',
     uri: 'main.json',
-    value: '//Type you solution here'
+    value: '#Type you solution here'
   };
 
   options = {
@@ -35,7 +35,8 @@ export class ProblemComponent implements OnInit {
   }
 
   onCodeChanged(value: any) {
-    const codeAsString = JSON.stringify(value, null, 2);
+    const indentedValue = value.replace(/ {4}/g, '\t');
+    const codeAsString = JSON.stringify(indentedValue, null, 2);
     console.log('CODE', codeAsString);
   }
 
