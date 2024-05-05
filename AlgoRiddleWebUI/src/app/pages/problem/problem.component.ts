@@ -35,7 +35,8 @@ export class ProblemComponent implements OnInit {
   }
 
   onCodeChanged(value: any) {
-    console.log('CODE', value);
+    const codeAsString = JSON.stringify(value, null, 2);
+    console.log('CODE', codeAsString);
   }
 
 
